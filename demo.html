@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Avyrix Demo — Paste your code and detect SQL injection, XSS, and hardcoded secrets instantly." />
+  <title>Code Scanner Demo — Avyrix</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2300e5a0'/><path d='M10 16l4 4 8-8' stroke='%23000' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MGV57BHCSG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-MGV57BHCSG');
+  </script>
+</head>
+
+<body>
+  <!-- ═══════════════════════════════════════════════════════════
+     NAVIGATION
+═══════════════════════════════════════════════════════════ -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Avyrix home">
+        <div class="nav__logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 8l3 3 7-7" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <span class="nav__logo-text">Avyrix</span>
+      </a>
+      <ul class="nav__links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="demo.html" class="active">Try Demo</a></li>
+        <li><a href="waitlist.html">Join Waitlist</a></li>
+      </ul>
+      <div class="nav__cta">
+        <a href="waitlist.html" class="btn btn--primary">Get Early Access</a>
+      </div>
+    </div>
+  </nav>
+  <!-- ═══════════════════════════════════════════════════════════
+     PAGE HEADER
+═══════════════════════════════════════════════════════════ -->
+  <main>
+    <header class="page-header" aria-labelledby="demo-heading">
+      <div class="container">
+        <span class="badge badge--green badge--dot" style="margin-bottom:16px;">Interactive Demo</span>
+        <h1 class="display-md fade-up" id="demo-heading">Vulnerability Scanner</h1>
+        <p class="fade-up fade-up--d1"> Paste your code to explore common security risk patterns like SQL Injection,
+          XSS, and secret leaks — with simple explanations and fixes. </p>
+      </div>
+    </header>
+    <!-- ═══════════════════════════════════════════════════════════
+     DEMO INTERFACE
+═══════════════════════════════════════════════════════════ -->
+    <section class="section--sm" style="padding-top:0;">
+      <div class="container">
+        <div class="grid-2" style="gap:40px;align-items:start;">
+          <!-- LEFT: Code Input Panel -->
+          <div data-reveal>
+            <div class="card" style="padding:0;overflow:hidden;">
+              <!-- Panel header -->
+              <div
+                style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);background:var(--bg-2);">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <div style="display:flex;gap:6px;" aria-hidden="true">
+                    <div class="code-block__dot"></div>
+                    <div class="code-block__dot"></div>
+                    <div class="code-block__dot"></div>
+                  </div>
+                  <span
+                    style="font-family:var(--font-mono);font-size:12px;color:var(--text-muted);">code-input.txt</span>
+                </div>
+                <span id="char-count" style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);">0
+                  chars</span>
+              </div>
+              <!-- Textarea -->
+              <div style="padding:20px 20px 0;">
+                <label for="code-input" class="sr-only">Paste your code here</label>
+                <textarea id="code-input" class="form-textarea"
+                  placeholder="// Paste your code here...&#10;&#10;// Example SQL injection:&#10;// query = &quot;SELECT * FROM users WHERE id = &quot; + userId&#10;&#10;// Example XSS:&#10;// element.innerHTML = userInput&#10;&#10;// Example secret:&#10;// api_key = &quot;sk-prod_abc123...&quot;"
+                  spellcheck="false" autocorrect="off" autocapitalize="off"
+                  style="min-height:320px;border-color:var(--border-strong);" aria-describedby="input-hint"></textarea>
+                <p id="input-hint"
+                  style="font-size:12px;color:var(--text-muted);font-family:var(--font-mono);margin-top:8px;"> Accepts
+                  Python, JavaScript, TypeScript, Go, PHP, Ruby, and more. </p>
+              </div>
+              <!-- Quick examples -->
+              <div style="padding:16px 20px;">
+                <p
+                  style="font-size:12px;color:var(--text-muted);font-family:var(--font-mono);margin-bottom:10px;letter-spacing:0.04em;">
+                  LOAD EXAMPLE:</p>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;" role="group" aria-label="Load example code">
+                  <button data-example="sqli" class="btn btn--ghost"
+                    style="padding:6px 12px;font-size:12px;font-family:var(--font-mono);"
+                    aria-label="Load SQL Injection example">💉 SQL Injection</button>
+                  <button data-example="xss" class="btn btn--ghost"
+                    style="padding:6px 12px;font-size:12px;font-family:var(--font-mono);"
+                    aria-label="Load XSS example">⚡ XSS</button>
+                  <button data-example="secret" class="btn btn--ghost"
+                    style="padding:6px 12px;font-size:12px;font-family:var(--font-mono);"
+                    aria-label="Load Secret Leak example">🔑 Secret Leak</button>
+                </div>
+              </div>
+              <!-- Action buttons -->
+              <div
+                style="display:flex;gap:10px;padding:16px 20px;border-top:1px solid var(--border);background:var(--bg-2);">
+                <button id="scan-btn" class="btn btn--primary" style="flex:1;justify-content:center;padding:12px;"
+                  aria-label="Scan code for vulnerabilities">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5" />
+                    <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                    <path d="M7 5v2M7 7h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                  </svg> Scan & Explain </button>
+                <button id="clear-btn" class="btn btn--ghost" style="padding:12px 16px;" aria-label="Clear code input">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                    <path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                  </svg> Clear </button>
+              </div>
+            </div>
+            <!-- Detection rules info -->
+            <div
+              style="margin-top:16px;padding:16px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);">
+              <p
+                style="font-size:12px;font-family:var(--font-mono);color:var(--text-muted);margin-bottom:10px;letter-spacing:0.04em;">
+                ACTIVE DETECTION RULES</p>
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span class="badge badge--red" style="font-size:11px;padding:3px 8px;">CRITICAL</span>
+                  <span style="font-size:13px;color:var(--text-secondary);">SQL Injection via string
+                    concatenation</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span class="badge badge--red" style="font-size:11px;padding:3px 8px;">CRITICAL</span>
+                  <span style="font-size:13px;color:var(--text-secondary);">XSS via innerHTML / document.write</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span class="badge badge--amber" style="font-size:11px;padding:3px 8px;">HIGH</span>
+                  <span style="font-size:13px;color:var(--text-secondary);">Hardcoded API keys, tokens &amp;
+                    passwords</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- RIGHT: Results Panel -->
+          <div>
+            <div id="scan-results" role="region" aria-label="Scan results" aria-live="polite">
+              <!-- Populated by demo.js -->
+            </div>
+            <div
+              style="margin-top:16px;padding:14px;border:1px solid var(--border);border-radius:8px;background:var(--bg-0);font-size:13px;color:var(--text-muted);">
+              ⚠️ Demo Mode: This tool highlights common security patterns for learning purposes (not full code
+              analysis).. Results highlight common risk patterns — not guaranteed vulnerabilities. Real-world security
+              depends on full code context. <p style="margin-top:8px;"> 🚀 This is a simplified preview of the platform.
+                The full version will provide real-time, context-aware scanning across your entire codebase. 👉 If this
+                helped you understand vulnerabilities better, consider joining early access. </p>
+              <a href="waitlist.html" class="btn btn--primary"
+                style="margin-top:10px;display:inline-block;font-size:12px;padding:8px 14px;"> Join Early Access </a>
+            </div>
+            <div style="margin-top:16px;">
+              <p style="font-size:13px;color:var(--text-muted);margin-bottom:8px;"> Was this helpful? </p>
+              <button onclick="sendFeedback('yes')" class="btn btn--ghost">👍 Yes</button>
+              <button onclick="sendFeedback('no')" class="btn btn--ghost">👎 No</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ═══════════════════════════════════════════════════════════
+     MINI CTA
+═══════════════════════════════════════════════════════════ -->
+    <section class="section--sm" style="border-top:1px solid var(--border);">
+      <div class="container" style="text-align:center;">
+        <h2
+          style="font-family:var(--font-display);font-size:26px;font-weight:700;letter-spacing:-0.02em;margin-bottom:10px;">
+          Want the full experience?</h2>
+        <p style="color:var(--text-secondary);font-size:15px;margin-bottom:24px;">Join our waitlist for early access to
+          the full scanner with 48+ rules, CI/CD integration, and team dashboards.</p>
+        <a href="waitlist.html" class="btn btn--primary btn--large">Join the Waitlist</a>
+      </div>
+    </section>
+  </main>
+  <!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__inner">
+        <div>
+          <div class="nav__logo" style="margin-bottom:6px;">
+            <div class="nav__logo-icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 8l3 3 7-7" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <span class="nav__logo-text">Avyrix</span>
+          </div>
+          <p class="footer__copy">© 2025 Avyrix. Built for developers, by developers.</p>
+        </div>
+        <nav class="footer__links" aria-label="Footer navigation">
+          <a href="index.html">Home</a>
+          <a href="waitlist.html">Waitlist</a>
+          <a href="#" onclick="return false;">Privacy</a>
+          <a href="#" onclick="return false;">Terms</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+  <!-- Load utils first (provides sanitizeInput, el, copyToClipboard) -->
+  <script src="js/utils.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/demo.js"></script>
+  <!-- Accessibility: visually hidden helper class -->
+  <style>
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0
+    }
+  </style>
+</body>
+
+</html>

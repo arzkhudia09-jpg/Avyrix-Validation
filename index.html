@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Paste your code and understand common security risk patterns like SQL Injection and XSS — with simple explanations and step-by-step fixes." />
+  <meta property="og:title" content="Avyrix — Security explained for developers" />
+  <meta property="og:description" content="Understand vulnerabilities in plain English and fix them step-by-step." />
+  <meta property="og:type" content="website" />
+  <title>Avyrix — Fix Security Issues Without Being a Security Expert</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2300e5a0'/><path d='M10 16l4 4 8-8' stroke='%23000' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MGV57BHCSG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-MGV57BHCSG');
+  </script>
+</head>
+
+<body>
+  <!-- ═══════════════════════════════════════════════════════════
+     NAVIGATION
+═══════════════════════════════════════════════════════════ -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Avyrix home">
+        <div class="nav__logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 8l3 3 7-7" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <span class="nav__logo-text">Avyrix</span>
+      </a>
+      <ul class="nav__links" role="list">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="demo.html">Try Demo</a></li>
+        <li><a href="waitlist.html">Join Waitlist</a></li>
+      </ul>
+      <div class="nav__cta">
+        <a href="demo.html" class="btn btn--ghost">Demo</a>
+        <a href="waitlist.html" class="btn btn--primary">Get Early Access</a>
+      </div>
+    </div>
+  </nav>
+  <!-- ═══════════════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════════════ -->
+  <main>
+    <section class="section"
+      style="padding-top: calc(var(--nav-h) + 80px); padding-bottom: 80px; position: relative; overflow: hidden;"
+      aria-labelledby="hero-heading">
+      <!-- Background glow accents -->
+      <div class="glow-accent glow-accent--green" style="top: -100px; right: -100px;" aria-hidden="true"></div>
+      <div class="glow-accent glow-accent--red" style="bottom: -50px; left: -80px;" aria-hidden="true"></div>
+      <!-- Grid lines background -->
+      <div
+        style="position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:64px 64px;opacity:0.3;pointer-events:none;"
+        aria-hidden="true"></div>
+      <div class="container" style="position:relative;z-index:1;">
+        <div style="max-width: 760px;">
+          <div class="fade-up">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:28px;flex-wrap:wrap;">
+              <span class="badge badge--green badge--dot">Now in Private Beta</span>
+              <span style="font-size:13px;color:var(--text-muted);font-family:var(--font-mono);">v0.9.4</span>
+            </div>
+          </div>
+          <h1 class="display-xl fade-up fade-up--d1" id="hero-heading"> Fix Security Issues<br>
+            <span style="color:var(--accent-green);">Without Being</span> a<br> Security Expert
+          </h1>
+          <p class="fade-up fade-up--d2"
+            style="font-size:18px;color:var(--text-secondary);margin-top:24px;max-width:540px;line-height:1.7;">
+            Avyrix helps you understand and fix common security vulnerabilities in your code with clear
+            explanations and guided solutions — <span style="color:var(--text-primary);font-weight:500;">explains them
+              in plain English</span> — and gives you exact fixes. Ship secure code without slowing down. </p>
+          <!-- Typewriter feature highlight -->
+          <div class="fade-up fade-up--d2" style="display:flex;align-items:center;gap:10px;margin-top:20px;">
+            <span style="font-size:14px;color:var(--text-muted);font-family:var(--font-mono);">Catches:</span>
+            <span id="typewriter"
+              style="font-size:14px;color:var(--accent-red);font-family:var(--font-mono);font-weight:500;min-width:140px;"></span>
+            <span class="terminal__caret" aria-hidden="true"></span>
+          </div>
+          <div class="fade-up fade-up--d3"
+            style="display:flex;align-items:center;gap:16px;margin-top:36px;flex-wrap:wrap;">
+            <a href="demo.html" class="btn btn--primary btn--large">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg> Try the Demo </a>
+            <a href="waitlist.html" class="btn btn--ghost btn--large">Join Waitlist — Free</a>
+          </div>
+          <!-- Social proof line -->
+          <div class="fade-up fade-up--d4" style="display:flex;align-items:center;gap:10px;margin-top:28px;">
+            <div style="display:flex;" aria-label="User avatars">
+              <!-- Avatar stack (decorative) -->
+              <div
+                style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);border:2px solid var(--bg-1);margin-right:-8px;"
+                aria-hidden="true"></div>
+              <div
+                style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#06b6d4,#3b82f6);border:2px solid var(--bg-1);margin-right:-8px;"
+                aria-hidden="true"></div>
+              <div
+                style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);border:2px solid var(--bg-1);margin-right:-8px;"
+                aria-hidden="true"></div>
+              <div
+                style="width:28px;height:28px;border-radius:50%;background:var(--bg-3);border:2px solid var(--bg-1);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--text-muted);"
+                aria-hidden="true">+</div>
+            </div>
+            <span style="font-size:13px;color:var(--text-muted);">
+              <span style="color:var(--text-secondary);font-weight:500;">2,400+</span> developers on the waitlist
+            </span>
+          </div>
+        </div>
+        <p style="margin-top:12px;font-size:13px;color:var(--text-muted);font-family:var(--font-mono);"> Built using
+          simplified detection logic for demo purposes • Real engine coming soon </p>
+        <!-- Terminal preview float -->
+        <div class="fade-up fade-up--d3" style="margin-top:64px;max-width:680px;" role="img"
+          aria-label="Code scanner terminal preview">
+          <div class="terminal">
+            <div class="terminal__bar">
+              <div class="terminal__dots" aria-hidden="true">
+                <div class="terminal__dot" style="background:#ff5f57;"></div>
+                <div class="terminal__dot" style="background:#ffbd2e;"></div>
+                <div class="terminal__dot" style="background:#28ca41;"></div>
+              </div>
+              <span class="terminal__title">avyrix — code-scanner</span>
+            </div>
+            <div class="terminal__body" aria-live="polite">
+              <div class="terminal__line--amber">$ avyrix scan ./src/api/users.py</div>
+              <div style="color:var(--text-muted);margin-top:8px;">Analyzing 847 lines across 12 files...</div>
+              <div style="color:var(--text-muted);">Running 48 security rules...</div>
+              <div class="terminal__line--red" style="margin-top:8px;">✗ [CRITICAL] SQL Injection — src/api/users.py:34
+              </div>
+              <div class="terminal__line--red">✗ [CRITICAL] XSS via innerHTML — src/views/profile.js:91</div>
+              <div class="terminal__line--amber">⚠ [HIGH] Hardcoded API key — src/config/aws.js:7</div>
+              <div class="terminal__line--green" style="margin-top:8px;">→ 3 vulnerabilities found. Generating fixes...
+              </div>
+              <div class="terminal__line--green">✓ Remediation guides ready. Review at localhost:4000</div>
+              <div style="margin-top:8px;color:var(--text-muted);">$<span class="terminal__caret"
+                  aria-hidden="true"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ═══════════════════════════════════════════════════════════
+     STATS
+═══════════════════════════════════════════════════════════ -->
+    <section class="section--sm" aria-label="Key statistics">
+      <div class="container">
+        <div class="stat-grid" role="list">
+          <div class="stat-item" role="listitem" data-reveal>
+            <div class="stat-item__num"><span data-count="83">0</span>%</div>
+            <div class="stat-item__label">of breaches involve known vulnerabilities with patches available</div>
+          </div>
+          <div class="stat-item" role="listitem" data-reveal>
+            <div class="stat-item__num">$<span data-count="4">0</span>.5M</div>
+            <div class="stat-item__label">average cost of a data breach for SMBs in 2024</div>
+          </div>
+          <div class="stat-item" role="listitem" data-reveal>
+            <div class="stat-item__num"><span data-count="94">0</span>%</div>
+            <div class="stat-item__label">of developers say they lack adequate security training</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ═══════════════════════════════════════════════════════════
+     PROBLEM SECTION
+═══════════════════════════════════════════════════════════ -->
+    <section class="section" aria-labelledby="problem-heading">
+      <div class="container">
+        <div style="max-width:600px;margin-bottom:64px;" data-reveal>
+          <span class="eyebrow">The Problem</span>
+          <h2 class="display-lg" id="problem-heading"> Security bugs are<br>shipping to production </h2>
+          <p style="color:var(--text-secondary);margin-top:16px;font-size:16px;line-height:1.75;"> Most developers
+            aren't security experts — and that's okay. The problem is that your tools don't help you catch these issues
+            before they become breaches. </p>
+        </div>
+        <div class="grid-3" role="list">
+          <!-- SQL Injection -->
+          <article class="card problem-card" data-reveal role="listitem">
+            <div class="problem-card__num">01 / SQL INJECTION</div>
+            <div class="problem-card__icon" style="background:var(--accent-red-dim);">
+              <span aria-hidden="true">💉</span>
+            </div>
+            <h3>SQL Injection</h3>
+            <p>Attackers manipulate your database queries through user input. A single quote can expose, modify, or
+              delete your entire database.</p>
+            <div
+              style="margin-top:20px;padding:14px;background:var(--bg-0);border-radius:var(--radius-md);font-family:var(--font-mono);font-size:12px;">
+              <span style="color:var(--accent-red);">query = "SELECT * WHERE id = " + userId</span><br>
+              <span style="color:var(--text-muted);"># ↑ Never do this</span>
+            </div>
+          </article>
+          <!-- XSS -->
+          <article class="card problem-card" data-reveal role="listitem">
+            <div class="problem-card__num">02 / CROSS-SITE SCRIPTING</div>
+            <div class="problem-card__icon" style="background:var(--accent-amber-dim);">
+              <span aria-hidden="true">⚡</span>
+            </div>
+            <h3>XSS Attacks</h3>
+            <p>User content is rendered as executable code. Attackers steal sessions, redirect users, or silently keylog
+              credentials through injected scripts.</p>
+            <div
+              style="margin-top:20px;padding:14px;background:var(--bg-0);border-radius:var(--radius-md);font-family:var(--font-mono);font-size:12px;">
+              <span style="color:var(--accent-amber);">el.innerHTML = userData.comment</span><br>
+              <span style="color:var(--text-muted);"># ↑ Use textContent instead</span>
+            </div>
+          </article>
+          <!-- Secrets -->
+          <article class="card problem-card" data-reveal role="listitem">
+            <div class="problem-card__num">03 / SECRET EXPOSURE</div>
+            <div class="problem-card__icon" style="background:var(--accent-blue-dim);">
+              <span aria-hidden="true">🔑</span>
+            </div>
+            <h3>Hardcoded Secrets</h3>
+            <p>API keys, tokens, and passwords committed to source control — even briefly — are permanently at risk.
+              Bots scan public repos in real time.</p>
+            <div
+              style="margin-top:20px;padding:14px;background:var(--bg-0);border-radius:var(--radius-md);font-family:var(--font-mono);font-size:12px;">
+              <span style="color:var(--accent-blue);">api_key = "sk-prod_AbC123..."</span><br>
+              <span style="color:var(--text-muted);"># ↑ Use env variables</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <!-- ═══════════════════════════════════════════════════════════
+     SOLUTION SECTION
+═══════════════════════════════════════════════════════════ -->
+    <section class="section"
+      style="background:var(--bg-0);border-top:1px solid var(--border);border-bottom:1px solid var(--border);"
+      aria-labelledby="solution-heading">
+      <div class="container">
+        <div class="grid-2" style="align-items:center;gap:80px;">
+          <!-- Left: Copy -->
+          <div data-reveal>
+            <span class="eyebrow">The Solution</span>
+            <h2 class="display-lg" id="solution-heading">Security coaching built for developers</h2>
+            <p style="color:var(--text-secondary);margin-top:16px;margin-bottom:32px;line-height:1.75;"> Avyrix
+              doesn't just tell you something is wrong. It explains <em>why</em> it's a risk, what an attacker would do
+              with it, and exactly how to fix it in your language and framework. </p>
+            <ul class="feature-list" role="list">
+              <li>Paste any code snippet — we detect vulnerabilities instantly</li>
+              <li>Plain-English explanations of the attack scenario</li>
+              <li>Step-by-step remediation tailored to your code</li>
+              <li>Fixed code example you can drop right in</li>
+              <li>No security degree required — built for developers</li>
+              <li>Supports Python, JavaScript, TypeScript, Go, PHP &amp; more</li>
+            </ul>
+            <div style="margin-top:36px;">
+              <a href="demo.html" class="btn btn--primary">Try it now — it's free</a>
+            </div>
+          </div>
+          <!-- Right: How it works steps -->
+          <div data-reveal>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <!-- Step 1 -->
+              <div
+                style="display:flex;gap:20px;padding:20px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);">
+                <div
+                  style="width:40px;height:40px;border-radius:var(--radius-md);background:var(--accent-green-dim);border:1px solid rgba(0,229,160,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--font-mono);font-size:13px;font-weight:500;color:var(--accent-green);">
+                  01</div>
+                <div>
+                  <h3 style="font-size:15px;font-weight:600;margin-bottom:6px;letter-spacing:-0.01em;">Paste your code
+                  </h3>
+                  <p style="font-size:13px;color:var(--text-secondary);line-height:1.65;">Drop in any snippet — a
+                    function, a route handler, a config file. No full codebase needed.</p>
+                </div>
+              </div>
+              <div style="width:1px;height:16px;background:var(--border);margin-left:40px;" aria-hidden="true"></div>
+              <!-- Step 2 -->
+              <div
+                style="display:flex;gap:20px;padding:20px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);">
+                <div
+                  style="width:40px;height:40px;border-radius:var(--radius-md);background:var(--accent-red-dim);border:1px solid rgba(255,77,106,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--font-mono);font-size:13px;font-weight:500;color:var(--accent-red);">
+                  02</div>
+                <div>
+                  <h3 style="font-size:15px;font-weight:600;margin-bottom:6px;letter-spacing:-0.01em;">We scan &amp;
+                    explain</h3>
+                  <p style="font-size:13px;color:var(--text-secondary);line-height:1.65;">Our engine detects SQL
+                    injection, XSS, hardcoded secrets, and more — with attack scenario context.</p>
+                </div>
+              </div>
+              <div style="width:1px;height:16px;background:var(--border);margin-left:40px;" aria-hidden="true"></div>
+              <!-- Step 3 -->
+              <div
+                style="display:flex;gap:20px;padding:20px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);">
+                <div
+                  style="width:40px;height:40px;border-radius:var(--radius-md);background:var(--accent-blue-dim);border:1px solid rgba(77,158,255,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--font-mono);font-size:13px;font-weight:500;color:var(--accent-blue);">
+                  03</div>
+                <div>
+                  <h3 style="font-size:15px;font-weight:600;margin-bottom:6px;letter-spacing:-0.01em;">Get your fix</h3>
+                  <p style="font-size:13px;color:var(--text-secondary);line-height:1.65;">Copy the corrected code block
+                    and apply the remediation steps. Ship secure code with confidence.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ═══════════════════════════════════════════════════════════
+     CTA SECTION
+═══════════════════════════════════════════════════════════ -->
+    <section class="section" style="position:relative;overflow:hidden;" aria-labelledby="cta-heading">
+      <div class="glow-accent glow-accent--green" style="top:50%;left:50%;transform:translate(-50%,-50%);"
+        aria-hidden="true"></div>
+      <div class="container" style="text-align:center;position:relative;z-index:1;">
+        <div data-reveal>
+          <span class="eyebrow">Start Today</span>
+          <h2 class="display-lg" id="cta-heading" style="max-width:560px;margin:0 auto;"> Stop shipping vulnerable code
+          </h2>
+          <p
+            style="color:var(--text-secondary);margin-top:16px;margin-bottom:36px;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.75;">
+            Join 2,400+ developers who are learning to write secure code without slowing down their teams. </p>
+          <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
+            <a href="demo.html" class="btn btn--primary btn--large"> Try the Demo Free </a>
+            <a href="waitlist.html" class="btn btn--ghost btn--large"> Join the Waitlist </a>
+          </div>
+          <p style="margin-top:20px;font-size:13px;color:var(--text-muted);font-family:var(--font-mono);"> No credit
+            card · No account needed for demo · Private beta launching Q2 2025 </p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__inner">
+        <div>
+          <div class="nav__logo" style="margin-bottom:6px;">
+            <div class="nav__logo-icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 8l3 3 7-7" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <span class="nav__logo-text">Avyrix</span>
+          </div>
+          <p class="footer__copy">© 2025 Avyrix. Built for developers, by developers.</p>
+        </div>
+        <nav class="footer__links" aria-label="Footer navigation">
+          <a href="demo.html">Demo</a>
+          <a href="waitlist.html">Waitlist</a>
+          <a href="#" onclick="return false;">Privacy</a>
+          <a href="#" onclick="return false;">Terms</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+  <script src="js/utils.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>
