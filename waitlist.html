@@ -68,8 +68,8 @@
               <span style="color:var(--accent-green);">securely by default</span>
             </h1>
             <p style="color:var(--text-secondary);font-size:16px;line-height:1.75;margin-bottom:36px;"> Get early access
-              to the full Avyrix platform — the security coaching tool that explains vulnerabilities in plain
-              English and tells you exactly how to fix them. </p>
+              to the full Avyrix platform — the security coaching tool that explains vulnerabilities in plain English
+              and tells you exactly how to fix them. </p>
             <!-- Benefit list -->
             <ul class="feature-list" role="list" style="margin-bottom:40px;">
               <li>Unlimited code scans across your entire codebase</li>
@@ -300,27 +300,33 @@
           &entry.895714306=${encodeURIComponent(name)}
           &entry.83427515=${encodeURIComponent(email)}
           &entry.128398878=${encodeURIComponent(role)}
-          &entry.748121666=${encodeURIComponent(company)}
+          ${company ? `&entry.748121666=${encodeURIComponent(company)}` : ''}
           &entry.89133008=${encodeURIComponent(usecase)}`;
 
-        alert("Opening secure form to complete your signup 🚀");
         // 👉 Open Google Form
         window.open(formURL, '_blank');
 
         // Optional UX improvement
         form.reset();
-        submitBtn.textContent = 'Redirecting...';
-        submitBtn.disabled = false;
+        submitBtn.textContent = 'Opening Form...';
+        submitBtn.disabled = true;
         submitBtn.style.opacity = '1';
       });
-
-
       // Clear errors on input
       document.getElementById('wl-name').addEventListener('input', function () { clearFieldError(this); });
       document.getElementById('wl-email').addEventListener('input', function () { clearFieldError(this); });
       document.getElementById('wl-role').addEventListener('change', function () { clearFieldError(this); });
+
+      window.addEventListener('focus', () => {
+        const submitBtn = document.getElementById('submit-btn');
+        if (submitBtn) {
+          submitBtn.textContent = 'Request Early Access';
+          submitBtn.disabled = false;
+          submitBtn.style.opacity = '1';
+        }
+      });
     })();
-  </script>
+        </script>
   <style>
     .sr-only {
       position: absolute;
