@@ -84,7 +84,7 @@ Real-world security depends on full code context.
 
 ## 🌐 Live Demo
 
-👉 [Live Demo](https://getavyrix.netlify.app)
+👉 [Live Demo](https://arzkhudia09-jpg.github.io/Avyrix-Validation/)
 
 ---
 
