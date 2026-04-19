@@ -287,6 +287,7 @@
         // 👉 Collect values
         const role = roleSelect.value;
         const usecase = document.getElementById('wl-usecase').value;
+        const company = document.getElementById('wl-company').value;
 
         // 👉 Track click (before redirect)
         gtag('event', 'waitlist_click', {
@@ -299,6 +300,7 @@
           &entry.895714306=${encodeURIComponent(name)}
           &entry.83427515=${encodeURIComponent(email)}
           &entry.128398878=${encodeURIComponent(role)}
+          &entry.748121666=${encodeURIComponent(company)}
           &entry.89133008=${encodeURIComponent(usecase)}`;
 
         alert("Opening secure form to complete your signup 🚀");
